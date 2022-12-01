@@ -2,8 +2,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { UiComponent } from './ui.component';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { addition } from '../addition/addition';
+import { substraction } from '../substraction/substraction';
+import { multiplication } from '../multiplication/multiplication';
+import { exp } from '../exp/exp';
+import { division } from '../division/division';
+import { sqr } from '../sqr/sqr';
+import { sqrt } from '../sqrt/sqrt';
 
-describe('Ui Addition - Component', () => {
+describe('Ui calculator - Component', () => {
+  //--suma--
   let component: UiComponent;
   let fixture: ComponentFixture<UiComponent>;
 
@@ -21,6 +29,7 @@ describe('Ui Addition - Component', () => {
     fixture.detectChanges();
   });
 
+  //1  Should ------------------------------
   it('Should call addition method', () => {
      // Arrange
      let result = 0;
@@ -35,8 +44,7 @@ describe('Ui Addition - Component', () => {
      expect(result).toBe(4);
   });
 
-
-
+  //2  Should ------------------------------
   it('Should set operator1 model through ngModel', async() => {
     // Arrange 
     await fixture.whenStable();
@@ -52,6 +60,7 @@ describe('Ui Addition - Component', () => {
     expect(component.operator1).toEqual(3.1416);
   });
  
+  //3  Should ------------------------------
   it('Should set operator2 model through ngModel', async() => {
     // Arrange 
     await fixture.whenStable();
@@ -67,7 +76,7 @@ describe('Ui Addition - Component', () => {
     expect(component.operator2).toEqual(2.71);
   });
 
-
+  //4  Should ------------------------------
   it('should add operator1 and operator2 when i click the addition button ', () => {
     // Arrange 
     component.operator1 = 5.0;
@@ -82,6 +91,7 @@ describe('Ui Addition - Component', () => {
 
    });
 
+   //5  Should ------------------------------
   it('Should render sum in result div', () => {
     // Arrange
     component.operator1 = 5;
@@ -100,4 +110,5 @@ describe('Ui Addition - Component', () => {
   });
 
 });
+
 
