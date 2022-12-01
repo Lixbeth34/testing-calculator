@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { UiComponent } from './ui.component';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { substraction } from '../substraction/substraction';
 
 describe('Ui Addition - Component', () => {
   let component: UiComponent;
@@ -101,3 +102,101 @@ describe('Ui Addition - Component', () => {
 
 });
 
+//--resta-----------------------------
+describe('Ui Substraction - Component', () => {
+  let component: UiComponent;
+  let fixture: ComponentFixture<UiComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [UiComponent],
+      imports: [FormsModule],
+    })
+      .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(UiComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+  //1  Should ---------------------------
+  it('Should call substraction method', () => {
+
+    // Arrange
+    let result = 0;
+
+    // Act
+    result = substraction(10, 2);
+
+    // Assert
+    expect(result).toBe(8);
+  })
+
+  //2  Should ------------------------------
+  it('Should set operator1 model through ngModel', async() => {
+    // Arrange 
+    await fixture.whenStable();
+    fixture.detectChanges();
+    const inputElement = fixture.debugElement.query(By.css('input[name="operator1"]')).nativeElement;
+  
+    // Act 
+    inputElement.value = '5';
+    inputElement.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+  
+    // Assert 
+    expect(component.operator1).toEqual(5);
+   });
+  
+   //3  Should ------------------------------
+   it('Should set operator2 model through ngModel', async() => {
+    // Arrange 
+    await fixture.whenStable();
+    fixture.detectChanges();
+    const inputElement = fixture.debugElement.query(By.css('input[name="operator2"]')).nativeElement;
+  
+    // Act 
+    inputElement.value = '10';
+    inputElement.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+  
+    // Assert 
+    expect(component.operator2).toEqual(10);
+  });
+
+
+  //4  Should ------------------------------
+  it('should substract operator1 and operator2 when i click the substraction button ', () => {
+    // Arrange
+    component.operator1 = 8.5;
+    component.operator2 = 3.0;
+    let substractionButton = fixture.debugElement.query(By.css('.substraction-button'));
+
+    // Act
+    substractionButton.triggerEventHandler('click', null);
+
+    // Assert
+    expect(component.result).toBe(5.5);
+
+  });
+
+  //5  Should ------------------------------
+  it('Should render substraction in result div', () => {
+    // Arrange
+    component.operator1 = 5;
+    component.operator2 = 5;
+
+    // Act
+    component.substraction();
+    fixture.detectChanges();
+
+    let de = fixture.debugElement.query(By.css('.result'));
+    let el: HTMLElement = de.nativeElement;
+
+    // Assert
+    expect(el.innerText).toContain('0');
+
+  });
+
+});
